@@ -1,0 +1,23 @@
+## Please check .eslintignore and .gitignore when changing this file
+.gitignore
+yarn.lock
+
+## file extensions
+*.*
+!*.css
+!*.js
+!*.json
+!*.jsx
+!*.less
+!*.md
+!*.mdx
+!*.ts
+!*.tsx
+!*.yml
+
+
+## copied from .gitignore
+.vscode/
+dist/
+node_modules/
+.cache

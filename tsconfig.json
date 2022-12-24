@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "lib": ["dom", "dom.iterable", "ES2020"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "noEmit": false,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@entities/*": ["entities/*"],
+      "@lib/*": ["lib/*"],
+      "@svg/*": ["shared/svg/*"],
+      "@src/*": ["./*"],
+      "@assets/*": ["../assets/*"],
+    }
+  },
+  "include": ["src/**/*", "backup/mocks.ts", "backup/layout.ts"],
+  "exclude": ["node_modules", "./dist", "./backup"]
+}
