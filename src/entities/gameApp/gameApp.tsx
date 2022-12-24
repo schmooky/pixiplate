@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import * as PIXI from 'pixi.js';
 import { Application, IApplicationOptions } from 'pixi.js';
 import { FC, useLayoutEffect, useRef, useState } from 'react';
-import { Stage, Text } from '@inlet/react-pixi';
+import { Stage, Text } from '@pixi/react-pixi';
 
 export const GameApp: FC = observer(() => {
   const div = useRef();

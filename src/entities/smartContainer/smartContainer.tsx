@@ -2,7 +2,7 @@ import { useResize } from '@lib/customHooks/useResize';
 import { isShallowEqual } from '@lib/utils';
 import PIXI from 'pixi.js';
 import React, { LegacyRef, useLayoutEffect } from 'react';
-import { Container, _ReactPixi, } from '@inlet/react-pixi';
+import { Container, _ReactPixi, } from '@pixi/react-pixi';
 import { SmartContainerProps, LayoutData, DEFAULT, LayoutDataRequired } from './smartContainer.types';
 
 

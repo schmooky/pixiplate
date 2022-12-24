@@ -1,5 +1,5 @@
 import { ExtendedSpine } from '@entities/common/extendedSpine';
-import { PixiComponent } from '@inlet/react-pixi';
+import { PixiComponent } from '@pixi/react-pixi';
 import { useComposedRefs } from '@lib/customHooks/useComposedRefs';
 import type { Event as SpineEvent, SkeletonData, Spine, TrackEntry } from '@pixi-spine/all-4.1';
 import React, { useEffect } from 'react';

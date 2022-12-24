@@ -1,4 +1,4 @@
-import { _ReactPixi } from '@inlet/react-pixi';
+import { _ReactPixi } from '@pixi/react-pixi';
 
 export const DEFAULT: LayoutDataRequired = {
   align: 'center',
