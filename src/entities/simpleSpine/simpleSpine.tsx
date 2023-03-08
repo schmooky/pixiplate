@@ -1,7 +1,13 @@
 import { ExtendedSpine } from '@entities/common/extendedSpine';
-import { PixiComponent } from '@pixi/react-pixi';
+import { PixiComponent } from '@pixi/react';
 import { useComposedRefs } from '@lib/customHooks/useComposedRefs';
-import type { Event as SpineEvent, SkeletonData, Spine, TrackEntry } from '@pixi-spine/all-4.1';
+import {
+  Event as SpineEvent,
+  SkeletonData,
+  Spine,
+  SpineDebugRenderer,
+  TrackEntry,
+} from '@pixi-spine/all-4.1';
 import React, { useEffect } from 'react';
 
 interface SpineProps {
@@ -16,51 +22,62 @@ interface SpineProps {
   scale?: number;
 }
 
-const SimpleSpine = React.forwardRef<Spine, SpineProps>(function SimpleSpine(
-  props,
-  ref: React.ForwardedRef<Spine>,
-) {
-  const {
-    spineData,
-    timeScale = 1,
-    animationProps,
-    skinName,
-    onEvent,
-    onStart,
-    onEnd,
-    onComplete,
-    scale,
-  } = props;
-  const animRef = React.useRef<Spine>(null);
-  const animCombinedRef = useComposedRefs<Spine>(ref, animRef);
+// const SimpleSpine = React.forwardRef<Spine, SpineProps>(function SimpleSpine(
+//   props,
+//   ref: React.ForwardedRef<Spine>,
+// ) {
+//   const {
+//     spineData,
+//     timeScale = 1,
+//     animationProps,
+//     skinName,
+//     onEvent,
+//     onStart,
+//     onEnd,
+//     onComplete,
+//     scale,
+//   } = props;
+//   const animRef = React.useRef<Spine>(null);
+//   const animCombinedRef = useComposedRefs<Spine>(ref, animRef);
 
-  // Настроить time scale
+//   // Настроить time scale
 
-  // Настроить skin
+//   // Настроить skin
 
-  // анимации
+//   // анимации
 
-  useEffect(() => {
-    if (!animRef.current) return;
-  }, [animRef]);
+//   useEffect(() => {
+//     if (!animRef.current) return;
+//   }, [animRef]);
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
-  return <SimplerSpine ref={animCombinedRef} spineData={spineData} scale={scale ?? 1} />;
-});
+//   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//   //@ts-ignore
+//   return <SimplerSpine ref={animCombinedRef} spineData={spineData} scale={scale ?? 1} />;
+// });
+
+const debugRenderer = new SpineDebugRenderer();
 
 export default PixiComponent('SimpleSpine', {
-  create: (props: SpineProps): ExtendedSpine => new ExtendedSpine(props.spineData),
-  applyProps: (instance, oldProps, newProps) => {
-    instance.scale.set(newProps.scale ?? 1);
+  create: (props: SpineProps): Spine => new ExtendedSpine(props.spineData),
+  didMount: (instance, parent) => {
+    instance.debug = debugRenderer;
+    if (instance.state.hasAnimation('rotation_right')) {
+      // run forever, little boy!
+      instance.state.setAnimation(0, 'rotation_right', true);
+      // dont run too fast
+      instance.state.timeScale = 0.1;
+      // update yourself
+      instance.autoUpdate = true;
+    }
   },
+  applyProps: (instance: Spine, oldProps, newProps) => {},
   config: {
     // destroy instance on unmount?
     // default true
-    destroy: true,
+    destroy: false,
 
     /// destroy its children on unmount?
     // default true
-    destroyChildren: true,
+    destroyChildren: false,
   },
 });

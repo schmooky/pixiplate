@@ -1,16 +1,17 @@
-import { SmartContainer } from '@entities/smartContainer';
 import { useResize } from '@lib/customHooks/useResize';
-import { gameData } from '@src/app';
 import { observer } from 'mobx-react';
 import * as PIXI from 'pixi.js';
-import { Application, IApplicationOptions } from 'pixi.js';
+import { Application, Assets, IApplicationOptions } from 'pixi.js';
 import { FC, useLayoutEffect, useRef, useState } from 'react';
-import { Stage, Text } from '@pixi/react-pixi';
+import { Container, Stage } from '@pixi/react';
+import { SimpleSpine } from '@entities/simpleSpine';
+import { loadAssets } from '@lib/load';
 
 export const GameApp: FC = observer(() => {
   const div = useRef();
 
   const [app, setApp] = useState(null);
+  const [loaded, setLoaded] = useState(false);
 
   const { width, height, isPortrait } = useResize();
 
@@ -20,12 +21,10 @@ export const GameApp: FC = observer(() => {
     const app = new Application(gameOptions);
     setApp(app);
 
-    //  TODO: add proper debug wrapping
-    //  Register PIXI tools hooks
-    window.__PIXI_INSPECTOR_GLOBAL_HOOK__ &&
-      window.__PIXI_INSPECTOR_GLOBAL_HOOK__.register({ PIXI: PIXI });
-
-    const promises = [];
+    loadAssets().then(() => {
+      setLoaded(true);
+      console.log(Assets.cache);
+    });
 
     return function cleanup() {
       setApp(null);
@@ -50,26 +49,13 @@ export const GameApp: FC = observer(() => {
 
   return (
     <div ref={div} style={{ overflow: 'hidden' }}>
-      {app && (
+      {app && loaded && (
         <>
           <Stage options={gameOptions} style={style}>
-            <SmartContainer
-              portraitData={{
-                viewportHeight: 3000,
-                viewportWidth: 1500,
-                align: 'center',
-                valign: 'top',
-                correctionOffsetY: 1170,
-              }}
-              landscapeData={{
-                viewportHeight: 1500,
-                viewportWidth: 3000,
-                align: 'center',
-                valign: 'center',
-              }}
-            >
-              <Text text={gameData.state} />
-            </SmartContainer>
+            {/* @ts-ignore */}
+            <Container x={100} y={100}>
+              <SimpleSpine spineData={Assets.cache.get('animation-test')} />
+            </Container>
           </Stage>
         </>
       )}
@@ -84,7 +70,7 @@ const gameOptions: IApplicationOptions = {
 };
 
 const style = {
-  width: ' 100%',
-  height: ' 100%',
+  width: '100%',
+  height: '100%',
   display: 'block',
 };

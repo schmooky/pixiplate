@@ -1,7 +1,7 @@
-import type { SkeletonData } from '@pixi-spine/all-4.1';
 import {
   AtlasAttachmentLoader,
   AttachmentTimeline,
+  SkeletonData,
   SkeletonJson,
   Spine,
   TextureAtlas,
@@ -18,8 +18,8 @@ interface ExtendedSpineAttachmentTimeline extends AttachmentTimeline {
 }
 
 export class ExtendedSpine extends Spine {
-  constructor(spineData: SkeletonData | string) {
-    super(typeof spineData === 'string' ? Assets.cache.get(spineData) : spineData);
+  constructor(spineData: SkeletonData) {
+    super(spineData);
   }
 
   /**
@@ -135,45 +135,4 @@ export class ExtendedSpine extends Spine {
 
     return { w: w, h: h };
   };
-
-  static loadSpineAsset(
-    spineName: string,
-    skeletonName: string,
-    imagesNames?: string[],
-  ): Promise<void> {
-    const promises = [
-      Assets.load(`/assets/spine/${skeletonName}.json`),
-      Assets.load({
-        format: 'txt',
-        src: `/assets/spine/${skeletonName}.atlas.txt`,
-      }),
-    ];
-
-    if (imagesNames) {
-      imagesNames.forEach((el) => {
-        promises.push(Assets.load(`/assets/spine/${el}.png`));
-      });
-    } else {
-      promises.push(Assets.load(`/assets/spine/${skeletonName}.png`));
-    }
-
-    return Promise.all(promises).then(() => {
-      // Делаем атлас
-      const spineAtlas = new TextureAtlas(
-        Assets.cache.get(`/assets/spine/${skeletonName}.atlas.txt`),
-        (path, loaderFunction) => {
-          loaderFunction(Assets.cache.get(`/assets/spine/${path}`));
-        },
-      );
-
-      const spineJsonParser = new SkeletonJson(new AtlasAttachmentLoader(spineAtlas));
-      const skeletonData = spineJsonParser.readSkeletonData(
-        Assets.cache.get(`/assets/spine/${skeletonName}.json`),
-      );
-
-      // Теперь закидываем спайн в кеш
-
-      Assets.cache.set(spineName, skeletonData);
-    });
-  }
 }

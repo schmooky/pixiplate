@@ -121,7 +121,7 @@ module.exports = {
     extensions: ['.ts', '.js', '.jsx', '.tsx'],
   },
   devServer: {
-    open: false,
+    open: true,
     disableHostCheck: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
