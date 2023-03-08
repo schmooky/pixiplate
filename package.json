@@ -8,7 +8,7 @@
     "npm-reset": "rm -rf node_modules && npm cache verify && npm i",
     "git-reset": "git reset HEAD --hard && git clean -fd && git fetch --all --tags --prune && git pull",
     "start": "webpack serve",
-    "dev": "webpack serve --mode development --host 0.0.0.0",
+    "dev": "webpack serve --mode development --host localhost",
     "build": "webpack",
     "generate:api": "orval --config ./orval.config.js",
     "lint": "eslint . --ext .ts,.tsx"
@@ -26,6 +26,7 @@
     "eventemitter3": "^4.0.7",
     "fontfaceobserver": "^2.3.0",
     "fs": "^0.0.1-security",
+    "gsap": "^3.11.4",
     "howler": "^2.2.3",
     "mobx": "^6.7.0",
     "mobx-react": "^7.6.0",

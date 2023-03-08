@@ -6,6 +6,7 @@ import { FC, useLayoutEffect, useRef, useState } from 'react';
 import { Container, Stage } from '@pixi/react';
 import { SimpleSpine } from '@entities/simpleSpine';
 import { loadAssets } from '@lib/load';
+import Example from '@components/example/example';
 
 export const GameApp: FC = observer(() => {
   const div = useRef();
@@ -14,6 +15,9 @@ export const GameApp: FC = observer(() => {
   const [loaded, setLoaded] = useState(false);
 
   const { width, height, isPortrait } = useResize();
+
+  const [exampleX, setExampleX] = useState(0);
+  const [exampleY, setExampleY] = useState(0);
 
   useLayoutEffect(() => {
     if (!div.current) return;
@@ -25,6 +29,11 @@ export const GameApp: FC = observer(() => {
       setLoaded(true);
       console.log(Assets.cache);
     });
+
+    setInterval(() => {
+      setExampleX(Math.random() * 500);
+      setExampleY(Math.random() * 500);
+    }, 2000);
 
     return function cleanup() {
       setApp(null);
@@ -52,10 +61,7 @@ export const GameApp: FC = observer(() => {
       {app && loaded && (
         <>
           <Stage options={gameOptions} style={style}>
-            {/* @ts-ignore */}
-            <Container x={100} y={100}>
-              <SimpleSpine spineData={Assets.cache.get('animation-test')} />
-            </Container>
+            <Example x={exampleX} y={exampleY} />
           </Stage>
         </>
       )}
