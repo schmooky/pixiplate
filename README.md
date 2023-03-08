@@ -2,7 +2,7 @@
 
 Decent template repo for pixi v7 with @pixi/react and mobx
 
-![GitHub package.json version](https://img.shields.io/github/package-json/v/devianllert/nextplate?style=for-the-badge)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/schmooky/pixiplate?style=for-the-badge)
 
 ## Introduction
 This is a **template** with all you need for your next web application. Aims for developers who really care about code quality, architecture, security and all the best practices in frontend.
