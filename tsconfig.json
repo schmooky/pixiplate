@@ -1,34 +1,14 @@
 {
-  "compilerOptions": {
-    "target": "ES6",
-    "lib": ["dom", "dom.iterable", "ES2020"],
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "ES6",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "react-jsx",
-    "noEmit": false,
-    "noImplicitAny": false,
-    "noImplicitThis": false,
-    "experimentalDecorators": true,
-    "sourceMap": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@components/*": ["components/*"],
-      "@entities/*": ["entities/*"],
-      "@lib/*": ["lib/*"],
-      "@svg/*": ["shared/svg/*"],
-      "@src/*": ["./*"],
-      "@assets/*": ["../assets/*"]
-    }
-  },
-  "include": ["src/**/*", "backup/mocks.ts", "backup/layout.ts"],
-  "exclude": ["node_modules", "./dist", "./backup"]
-}
+    "compilerOptions": {
+      "target": "ESNext",
+      "module": "ESNext",
+      "moduleResolution": "node",
+      "strict": true,
+      "esModuleInterop": true,
+      "outDir": "./dist",
+      "rootDir": "./src",
+      "skipLibCheck": true
+    },
+    "include": ["src/**/*", "global.d.ts"],
+    "exclude": ["node_modules"]
+  }
